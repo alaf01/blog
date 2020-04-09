@@ -1,0 +1,48 @@
+.uuu{
+    background-color: #eeebf7;
+    font-size: 20 px;
+}
+.navbar-brand{
+  font-family: 'Baloo 2', cursive;
+  font-size: 30px;
+  color: pink !important;
+}
+.navbar{
+  font-family: 'Amatic SC', cursive;
+  font-size: 30px;
+  font-weight: 900;
+  background-color:  yellow;
+  color: green;
+}
+
+.navbar a:hover {
+  background-color: #efe9f2;
+}
+
+.smaller{
+  font-size: 20px;
+  color: #e6e0d1;
+}
+
+.title{
+  background-color: white;
+  padding: 5px;
+  margin:10px;
+  text-align: center;
+}
+
+.text{
+  opacity: 0.5;
+}
+
+.block{
+  padding: 3%
+}
+
+.comments{
+  background-color: white;
+  padding: 5px;
+  margin:10px;
+  text-align: center;
+}
+

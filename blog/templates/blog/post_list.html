@@ -1,0 +1,79 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    {% if page_obj %}
+
+
+            <hr><hr>
+        <div class="container-fluid">
+            <div class="row">
+                {% for post in page_obj %}
+                <div class="col-xl-4 col-md-4 col-sm-6 col-xs-12">
+                    <h3 class="title">{{post.title}}</h3>
+
+                      {% if post.photos.count != 0 %}
+                    <p>There is a photo inside</p>
+                      <div class="col-12 text-center">
+                        <img class="img-fluid" src="{{ post.photos.path }}">
+                      </div>
+                      {% endif %}
+                    <div class="block">
+                      <div class="row justify-content-around">
+                        <div class="col-sm-10 text"><p>{{post.text|truncatewords:30}}</p>
+                                <div class="col-sm-12 block align-self-end">
+                                    <small>
+                                        <p class="row">
+                                            <div class="col-sm-12">published {{post.published_date}}
+                                            </div>
+                                        </p>
+                                    </small>
+                                    <div class="row justify-content-end">
+
+                                            <div class="col-sm-6 row align-items-center "><small>
+                                                {% if post.approve_comments.count == 0 %}
+                                                    No comments
+                                                {% elif post.approve_comments.count == 1 %}
+                                                    1 comment
+                                                {% else %}
+                                                    {{ post.approve_comments.count }} comments
+                                                {% endif %}
+                                            </small>
+                                            </div>
+                                        <a class="col-sm-6 btn btn-outline-secondary" href="{% url 'post_detail' pk=post.pk %}">Read more</a>
+                                    </div>
+                                </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+    {% endfor %}
+            </div>
+
+
+    {% endif %}
+    </div>
+   <div class="row justify-content-around">
+        <div class="col-sm-3">
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+        {% if page_obj.has_previous %}
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>{% endif %}
+
+    </li>
+    <li class="page-item  active"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+    <li class="page-item">
+        {% if page_obj.has_next %}
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>{% endif %}
+
+    </li>
+  </ul>
+</nav></div></div>
+{% endblock %}
