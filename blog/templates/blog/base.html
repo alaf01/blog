@@ -53,7 +53,7 @@
           </li>
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="#">Create Post</a>
+            <a class="nav-link" href="{% url 'post_create' %}">Create Post</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Delete Post</a>

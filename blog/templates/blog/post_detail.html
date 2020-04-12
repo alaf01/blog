@@ -4,6 +4,11 @@
 {% block content %}
 
         <div class="content">
+            {% if success %}
+            <div class="alert alert-success" role="alert">
+            Thank you for adding comment. It will be display after approval
+            </div>
+            {% endif %}
         <h3 class="title">{{post.title}}</h3>
 
             <div class="col-12 text-center justify-content-around high">
@@ -30,24 +35,41 @@
             {% if post.approve_comments.count != 0 %}
                     <h4>Comments:</h4>
                     <hr>
-            {% endif %}
+            {% endif %} <div class="comments">
                     {% for comment in post.comments.all %}
-                        {% if comment.approved_comment %}
 
+                        {% if comment.approved_comment or user.is_authenticated%}
+                    <div class="comments">
                             <small> {{comment.author}}</small>
                             <small> {{comment.create_date}}</small>
-                             <small class="right">score: {{comment.score}}
+                            <small class="right">score: {{comment.score}}
 
                                      <a href="{% url 'score_up' post.pk comment.pk %}"><i class="material-icons">thumb_up</i></a>
                                      <a href="{% url 'score_down' post.pk comment.pk %}"><i class="material-icons">thumb_down</i></a>
                             </small>
 
                             <p> {{comment.text}}</p>
+                            {% if user.is_authenticated %}
+
+                            <div class="right">
+                                <div class="btn-group-sm " role="group" aria-label="Approve or delete">
+                                    {% if not comment.approved_comment%}
+                                        <a class="btn btn-secondary" href="{% url 'approve' comment.pk %}" >Approve</a>
+                                    {% elif comment.approved_comment %}
+                                        <a class="btn btn-secondary" href="{% url 'disapprove' comment.pk %}" >Disapprove</a>
+                                    {% endif %}
+                                     <a class="btn btn-secondary" href="{% url 'delete' comment.pk %}" >Delete</a>
+                                </div>
+                            </div>
+                            {% endif %}</div>
                         {% endif %}
                     {% empty %}
                         <p>No comments yet. Add the first one.</p>
+
                     {% endfor %}
-                    <a href="{% url 'add_comment_to_post' post.pk %}" class="btn btn-outline-primary">Add a comment</a>
+                </div>
+
+                    <a href="{% url 'add_comment_to_post' post.pk %}" class="btn btn-outline-secondary">Add a comment</a>
                 </div>
 
             </div>

@@ -36,6 +36,10 @@ class Comment(models.Model):
         self.approved_comment = True
         self.save()
 
+    def disapprove(self):
+        self.approved_comment = False
+        self.save()
+
     def get_absolute_url(self):
         return reverse("post_list")
 
@@ -48,7 +52,7 @@ class Comment(models.Model):
         self.save()
 
     def __str__(self):
-        return self.text
+        return self.author
 
 class Photo(models.Model):
     post = models.ForeignKey('blog.Post', related_name='photos', on_delete=models.CASCADE)
