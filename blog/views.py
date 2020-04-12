@@ -22,6 +22,20 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
 
+def score_up(request, post_pk, comment_pk):
+    post=get_object_or_404(Post, pk=post_pk)
+    comment=get_object_or_404(Comment, pk=comment_pk)
+    comment.get_score_up()
+    return render(request, 'blog/post_detail.html',
+                  {'post': post, 'comment': comment})
+
+def score_down(request, post_pk, comment_pk):
+    post=get_object_or_404(Post, pk=post_pk)
+    comment=get_object_or_404(Comment, pk=comment_pk)
+    comment.get_score_down()
+    return render(request, 'blog/post_detail.html',
+                  {'post': post, 'comment': comment})
+
 class CreatePostView(LoginRequiredMixin,CreateView):
     #wher to go if not logged in
     login_url='/login/'
@@ -58,7 +72,6 @@ def post_publish(request,pk):
     post.publish
     return redirect('post_detail', pk=pk)
 
-@login_required
 def add_comment_to_post(request,pk):
     post = get_object_or_404(Post,pk=pk)
     if request.method == 'POST':

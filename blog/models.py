@@ -30,6 +30,7 @@ class Comment(models.Model):
     text = models.TextField()
     create_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
+    score = models.IntegerField(default=0)
 
     def approve(self):
         self.approved_comment = True
@@ -37,6 +38,14 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse("post_list")
+
+    def get_score_up(self):
+        self.score+=1
+        self.save()
+
+    def get_score_down(self):
+        self.score-=1
+        self.save()
 
     def __str__(self):
         return self.text

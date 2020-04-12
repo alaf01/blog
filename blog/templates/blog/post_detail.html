@@ -1,13 +1,30 @@
 {% extends "blog/base.html" %}
+{% load static %}
+
 {% block content %}
+
+        <div class="content">
         <h3 class="title">{{post.title}}</h3>
-        <div class="block">
-          <div class="row justify-content-around">
-        <div class="col-sm-10 text"><p>{{post.text}}</p>
+
+            <div class="col-12 text-center justify-content-around high">
+                {% if post.photos.count != 0 %}
+                <div class="verticalcenter">
+                    <img class="img-text" src="{{post.photos.first.photo.url}}" alt="My image">
+                </div>
+                {% else %}
+                    <img class="img-text" src="{% static "blog/panda.jpg" %}" alt="My image">
+                 {% endif %}
+                <div class="col-12 text"><p>{{post.text}}</p></div>
+
+
+
             <div class="row justify-content-between">
         <div class="col-sm-3"><h8>athor: {{post.author}}</h8></div>
+
         <div class="col-sm-4"><p class="row">published {{post.published_date}}</p></div>
                 </div>
+        </div>
+        </div>
             <div class="row justify-content-around">
                 <div class="col-sm-6 uuu">
             {% if post.approve_comments.count != 0 %}
@@ -19,12 +36,18 @@
 
                             <small> {{comment.author}}</small>
                             <small> {{comment.create_date}}</small>
+                             <small class="right">score: {{comment.score}}
+
+                                     <a href="{% url 'score_up' post.pk comment.pk %}"><i class="material-icons">thumb_up</i></a>
+                                     <a href="{% url 'score_down' post.pk comment.pk %}"><i class="material-icons">thumb_down</i></a>
+                            </small>
+
                             <p> {{comment.text}}</p>
                         {% endif %}
                     {% empty %}
                         <p>No comments yet. Add the first one.</p>
                     {% endfor %}
-
+                    <a href="{% url 'add_comment_to_post' post.pk %}" class="btn btn-outline-primary">Add a comment</a>
                 </div>
 
             </div>
