@@ -19,7 +19,7 @@
                 {% else %}
                     <img class="img-text" src="{% static "blog/panda.jpg" %}" alt="My image">
                  {% endif %}
-                <div class="col-12 text"><p>{{post.text}}</p></div>
+                <div class="col-12 text padding"><p>{{post.text}}</p></div>
 
 
 
@@ -39,7 +39,7 @@
                     {% for comment in post.comments.all %}
 
                         {% if comment.approved_comment or user.is_authenticated%}
-                    <div class="comments">
+                    <div {% if user.is_authenticated %} class="comments" {% endif %}>
                             <small> {{comment.author}}</small>
                             <small> {{comment.create_date}}</small>
                             <small class="right">score: {{comment.score}}

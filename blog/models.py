@@ -13,12 +13,20 @@ class Post(models.Model):
         self.published_date = timezone.now()
         self.save()
 
+    def unpublish(self):
+        self.published_date = None
+        self.save()
+
     def approve_comments(self):
         return self.comments.filter(approved_comment=True)
 
 #method which tells Django where to go back to after creation of the model
     def get_absolute_url(self):
         return reverse("post_detail", kwargs={'pk':self.pk})
+
+    @property
+    def is_published(self):
+        return self.published_date != None
 
     def __str__(self):
         return self.title

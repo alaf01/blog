@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
+
 class AboutView(TemplateView):
     template_name = 'about.html'
 
@@ -18,6 +19,14 @@ class PostListView(ListView):
 
     def get_queryset(self):
         return Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+
+class PostListViewAll(ListView, LoginRequiredMixin):
+    model = Post
+    paginate_by = 9
+    template_name = "post_list_all.html"
+
+    def get_queryset(self):
+        return Post.objects.filter(published_date=None).order_by('-create_date')
 
 class PostDetailView(DetailView):
     model = Post
@@ -69,8 +78,13 @@ class DraftListView(LoginRequiredMixin,ListView):
 @login_required
 def post_publish(request,pk):
     post = get_object_or_404(Post,pk=pk)
-    post.publish
-    return redirect('post_detail', pk=pk)
+    post.publish()
+    return redirect('post_list')
+
+def post_unpublish(request,pk):
+    post = get_object_or_404(Post,pk=pk)
+    post.unpublish()
+    return redirect('unpublished')
 
 def add_comment_to_post(request,pk):
     post = get_object_or_404(Post,pk=pk)

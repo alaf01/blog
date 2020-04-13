@@ -9,12 +9,27 @@
     float: left;
     padding: 20px 20px 20px 20px;
     max-width: 80%;
+    max-height: 300px;
     align: bottom;
 
 }
 .right{
     float: right;
     margin: 10px;
+}
+.left{
+    float: left;
+    margin: 10px;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.padding{
+    padding: 10%;
 }
 .high{
     border: 1px solid grey;
@@ -39,7 +54,11 @@
   background-color:  yellow;
   color: green;
 }
-
+.nav-item{
+    border: 1px solid grey;
+    border-radius: 10px;
+    border-color: rgba(55, 55, 55, 0.15);
+}
 .navbar a:hover {
   background-color: #efe9f2;
 }
