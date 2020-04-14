@@ -46,12 +46,13 @@ def score_down(request, post_pk, comment_pk):
                   {'post': post, 'comment': comment})
 
 class CreatePostView(LoginRequiredMixin,CreateView):
-    #wher to go if not logged in
+    #where to go if not logged in
     login_url='/login/'
     #where to go after login
     redirect_field_name = 'blog/post_detail.html'
     form_class = PostForm
     model = Post
+    template_name = "blog/add_photo.html"
 
 class PostUpdateView(LoginRequiredMixin,UpdateView):
     login_url='/login/'
@@ -84,6 +85,16 @@ def post_publish(request,pk):
 def post_unpublish(request,pk):
     post = get_object_or_404(Post,pk=pk)
     post.unpublish()
+    return redirect('unpublished')
+
+def post_remove(request, pk):
+    post = get_object_or_404(Post,pk=pk)
+    post.delete()
+    return redirect('post_list')
+
+def post_remove_unpublished(request, pk):
+    post = get_object_or_404(Post,pk=pk)
+    post.delete()
     return redirect('unpublished')
 
 def add_comment_to_post(request,pk):

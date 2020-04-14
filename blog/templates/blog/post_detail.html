@@ -19,7 +19,7 @@
                 {% else %}
                     <img class="img-text" src="{% static "blog/panda.jpg" %}" alt="My image">
                  {% endif %}
-                <div class="col-12 text padding"><p>{{post.text}}</p></div>
+                <div class="col-12 text padding"><p>{{post.text|linebreaks }}</p></div>
 
 
 

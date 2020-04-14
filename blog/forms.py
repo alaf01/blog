@@ -1,5 +1,5 @@
 from django import forms
-from blog.models import Post, Comment
+from blog.models import Post, Comment, Photo
 
 class PostForm(forms.ModelForm):
 
@@ -7,7 +7,11 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('author', 'title', 'text')
 
+class PhotoForm(forms.ModelForm):
 
+    class Meta():
+        model = Photo
+        fields = ('post', 'photo')
 
 class CommentForm(forms.ModelForm):
 

@@ -15,13 +15,16 @@
 
                                             <div class="row justify-content-around center">
                                                 <div class="btn-group-sm " role="group" aria-label="Approve or delete">
+                                                    <a class="btn btn-secondary" href="{% url 'post_update' post.pk %}" >Edit</a>
                                                     {% if not post.is_published %}
                                                         <a class="btn btn-secondary" href="{% url 'publish' post.pk %}" >Publish</a>
+                                                     <a class="btn btn-secondary" href="{% url 'remove_unpublished' post.pk %}" >Remove</a>
                                                     {% else %}
                                                         <a class="btn btn-secondary" href="{% url 'unpublish' post.pk %}" >Unpublish</a>
-                                                    {% endif %}
-                                                    <a class="btn btn-secondary" href="{% url 'post_update' post.pk %}" >Edit</a>
                                                      <a class="btn btn-secondary" href="{% url 'remove' post.pk %}" >Remove</a>
+                                                    {% endif %}
+
+
                                                 </div>
                                             </div>
 
