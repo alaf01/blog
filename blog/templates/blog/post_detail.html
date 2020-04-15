@@ -12,9 +12,9 @@
         <h3 class="title">{{post.title}}</h3>
 
             <div class="col-12 text-center justify-content-around high">
-                {% if post.photos.count != 0 %}
+                {% if post.photo %}
                 <div class="verticalcenter">
-                    <img class="img-text" src="{{post.photos.first.photo.url}}" alt="My image">
+                    <img class="img-text" src="{{post.photo.url}}" alt="My image">
                 </div>
                 {% else %}
                     <img class="img-text" src="{% static "blog/panda.jpg" %}" alt="My image">

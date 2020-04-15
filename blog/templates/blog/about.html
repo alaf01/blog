@@ -1,7 +1,16 @@
 {% extends "blog/base.html" %}
 {% block content %}
-<h1>Hello</h1>
-<h2>My name is Monika</h2>
-<h3>I like art and nature</h3>
-<h4>I put beetroot on my face to keep look beautiful</h4>
+<div class="content row">
+        <div class="col-8">
+
+<h1>{{welcome.title}}</h1>
+<p>{{welcome.description}}</p>
+        </div>
+        <div class="col-4">
+<img class="img-text" src="{{welcome.image.url}}" alt="My image">
+        </div>
+</div>
+{% if user.is_authenticated %}
+<button class="btn btn-secondary "><a href={% url 'edit' welcome.pk %} >Edit</a></button>
+{% endif %}
 {% endblock %}

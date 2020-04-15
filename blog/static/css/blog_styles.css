@@ -1,5 +1,7 @@
 @import url("//netdna.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css");
-
+a{
+color: black;
+}
 .uuu{
     background-color: #eeebf7;
     font-size: 20 px;

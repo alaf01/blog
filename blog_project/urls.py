@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('accounts/login/', LoginView.as_view(), name='login'),
-    path('accounts/logout', LogoutView.as_view(), name='logout',kwargs={'next_page':'/'}),
+    path('accounts/logout', LogoutView.as_view(next_page='about'), name='logout'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

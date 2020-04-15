@@ -8,6 +8,8 @@ class Post(models.Model):
     text = models.TextField()
     create_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
+    photo = models.ImageField(default="", upload_to='blogPhotos',blank=True, null=True)
+
 
     def publish(self):
         self.published_date = timezone.now()
@@ -19,6 +21,7 @@ class Post(models.Model):
 
     def approve_comments(self):
         return self.comments.filter(approved_comment=True)
+
 
 #method which tells Django where to go back to after creation of the model
     def get_absolute_url(self):
@@ -62,6 +65,7 @@ class Comment(models.Model):
     def __str__(self):
         return self.author
 
-class Photo(models.Model):
-    post = models.ForeignKey('blog.Post', related_name='photos', on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='blogPhotos')
+class Welcome(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    image = models.ImageField( upload_to='startPage',blank=True, null=True)
