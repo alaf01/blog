@@ -12,14 +12,14 @@
         <h3 class="title">{{post.title}}</h3>
 
             <div class="col-12 text-center justify-content-around high">
-                {% if post.photos.count != 0 %}
+                {% if post.photo %}
                 <div class="verticalcenter">
-                    <img class="img-text" src="{{post.photos.first.photo.url}}" alt="My image">
+                    <img class="img-text" src="{{post.photo.url}}" alt="My image">
                 </div>
                 {% else %}
                     <img class="img-text" src="{% static "blog/panda.jpg" %}" alt="My image">
                  {% endif %}
-                <div class="col-12 text"><p>{{post.text}}</p></div>
+                <div class="col-12 text padding"><p>{{post.text|linebreaks }}</p></div>
 
 
 
@@ -39,7 +39,7 @@
                     {% for comment in post.comments.all %}
 
                         {% if comment.approved_comment or user.is_authenticated%}
-                    <div class="comments">
+                    <div {% if user.is_authenticated %} class="comments" {% endif %}>
                             <small> {{comment.author}}</small>
                             <small> {{comment.create_date}}</small>
                             <small class="right">score: {{comment.score}}

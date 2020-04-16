@@ -1,0 +1,113 @@
+
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+    {% if page_obj %}
+
+
+            <hr><hr>
+        <div class="container-fluid">
+            <div class="row">
+                {% for post in page_obj %}
+                <div class="col-xl-4 col-md-4 col-sm-6 col-xs-12">
+                    <h3 class="title">{{post.title}}</h3>
+
+                      {% if post.photos.count != 0 %}
+                       <div class="col-12 text-center">
+                          <img class="postlist_img" src="{{post.photos.first.photo.url}}" alt="My image">
+                      </div>
+                        {% else %}
+                        <div class="col-12 text-center">
+                          <img class="postlist_img" src="{% static "blog/panda.jpg" %}" alt="My image">
+                        </div>
+                      {% endif %}
+                    <div class="block">
+                      <div class="row justify-content-around">
+                        <div class="col-sm-10 text"><p>{{post.text|truncatewords:30}}</p>
+                                <div class="col-sm-12 block align-self-end">
+                                    <small>
+                                        <p class="row">
+                                            <div class="col-sm-12">published {{post.published_date}}
+                                            </div>
+                                        </p>
+                                    </small>
+                                    <div class="row justify-content-end">
+
+                                            <div class="col-sm-6 row align-items-center "><small>
+                                                {% if post.approve_comments.count == 0 %}
+                                                    No comments
+                                                {% elif post.approve_comments.count == 1 %}
+                                                    1 comment
+                                                {% else %}
+                                                    {{ post.approve_comments.count }} comments
+                                                {% endif %}
+                                            </small>
+                                            </div>
+                                        <a class="col-sm-6 btn btn-outline-secondary" href="{% url 'post_detail' pk=post.pk %}">Read more</a>
+                                         {% if user.is_authenticated %}
+
+                                            <div class="right">
+                                                <div class="btn-group-sm " role="group" aria-label="Approve or delete">
+                                                    {% if comment.approved_comment%}
+                                                        <a class="btn btn-secondary" href="{% url 'publish' post.pk %}" >Publish</a>
+                                                    {% else %}
+                                                        <a class="btn btn-secondary" href="{% url 'unpublish' post.pk %}" >Unpublish</a>
+                                                    {% endif %}
+                                                     <a class="btn btn-secondary" href="{% url 'remove' post.pk %}" >Remove</a>
+                                                </div>
+                                            </div>
+
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+    {% endfor %}
+            </div>
+
+
+    {% endif %}
+    </div>
+   <div class="row justify-content-around">
+        <div class="col-sm-3">
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+
+      {% if page_obj.has_previous %}
+          <li class="page-item">
+              <a class="page-link" href="?page=1" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+          </li>
+      {% endif %}
+      {% if page_obj.has_previous %}
+          <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                {{ page_obj.previous_page_number }}
+              </a>
+          </li>
+      {% endif %}
+    <li class="page-item  active"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+    <li class="page-item">
+        {% if page_obj.has_next %}
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+        {{ page_obj.next_page_number }}
+      </a>{% endif %}
+
+    </li>
+    <li class="page-item">
+        {% if page_obj.has_next %}
+      <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>{% endif %}
+
+    </li>
+  </ul>
+</nav></div></div>
+{% endblock %}

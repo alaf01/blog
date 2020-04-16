@@ -1,2 +1,16 @@
 {% extends "blog/base.html" %}
-{% block content %}ABOUT{% endblock %}
+{% block content %}
+<div class="content row">
+        <div class="col-8">
+
+<h1>{{welcome.title}}</h1>
+<p>{{welcome.description}}</p>
+        </div>
+        <div class="col-4">
+<img class="img-text" src="{{welcome.image.url}}" alt="My image">
+        </div>
+</div>
+{% if user.is_authenticated %}
+<button class="btn btn-secondary "><a href={% url 'edit' welcome.pk %} >Edit</a></button>
+{% endif %}
+{% endblock %}

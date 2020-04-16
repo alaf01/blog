@@ -5,22 +5,40 @@
     {% if page_obj %}
 
 
-            <hr><hr>
         <div class="container-fluid">
             <div class="row">
                 {% for post in page_obj %}
                 <div class="col-xl-4 col-md-4 col-sm-6 col-xs-12">
                     <h3 class="title">{{post.title}}</h3>
+                    <div class="container">
+                                       {% if user.is_authenticated %}
 
-                      {% if post.photos.count != 0 %}
+                                            <div class="row justify-content-around center">
+                                                <div class="btn-group-sm " role="group" aria-label="Approve or delete">
+                                                    <a class="btn btn-secondary" href="{% url 'post_update' post.pk %}" >Edit</a>
+                                                    {% if not post.is_published %}
+                                                        <a class="btn btn-secondary" href="{% url 'publish' post.pk %}" >Publish</a>
+                                                     <a class="btn btn-secondary" href="{% url 'remove_unpublished' post.pk %}" >Remove</a>
+                                                    {% else %}
+                                                        <a class="btn btn-secondary" href="{% url 'unpublish' post.pk %}" >Unpublish</a>
+                                                     <a class="btn btn-secondary" href="{% url 'remove' post.pk %}" >Remove</a>
+                                                    {% endif %}
+
+
+                                                </div>
+                                            </div>
+
+                                        {% endif %}
+                      {% if post.photo%}
                        <div class="col-12 text-center">
-                          <img class="postlist_img" src="{{post.photos.first.photo.url}}" alt="My image">
+                          <img class="postlist_img" src="{{post.photo.url}}" alt="My image">
                       </div>
                         {% else %}
                         <div class="col-12 text-center">
                           <img class="postlist_img" src="{% static "blog/panda.jpg" %}" alt="My image">
                         </div>
                       {% endif %}
+                        </div>
                     <div class="block">
                       <div class="row justify-content-around">
                         <div class="col-sm-10 text"><p>{{post.text|truncatewords:30}}</p>
@@ -44,6 +62,7 @@
                                             </small>
                                             </div>
                                         <a class="col-sm-6 btn btn-outline-secondary" href="{% url 'post_detail' pk=post.pk %}">Read more</a>
+
                                     </div>
                                 </div>
 
