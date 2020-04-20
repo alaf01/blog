@@ -11,6 +11,7 @@
                 <div class="col-xl-4 col-md-4 col-sm-6 col-xs-12">
                     <h3 class="title">{{post.title}}</h3>
                     <div class="container">
+
                                        {% if user.is_authenticated %}
 
                                             <div class="row justify-content-around center">
@@ -35,6 +36,7 @@
                       </div>
                         {% else %}
                         <div class="col-12 text-center">
+
                           <img class="postlist_img" src="{% static "blog/panda.jpg" %}" alt="My image">
                         </div>
                       {% endif %}
@@ -48,7 +50,14 @@
                                             <div class="col-sm-12">published {{post.published_date}}
                                             </div>
                                         </p>
-                                    </small>
+
+                                    {% if post.tags.count != 0 %}
+                                    <p class="row">
+                                         <div class="col-sm-12">Tags: {{ post.tags.all|join:", " }}
+                                        </div>
+                                    </p>
+                                    {% endif %}
+                                        </small>
                                     <div class="row justify-content-end">
 
                                             <div class="col-sm-6 row align-items-center "><small>
