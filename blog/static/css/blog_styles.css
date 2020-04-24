@@ -3,7 +3,6 @@ a{
 color: black;
 }
 
-git
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   [class*="col-"] {
@@ -14,6 +13,7 @@ git
     background-color: #eeebf7;
     font-size: 20 px;
     margin-bottom: 50px;
+    padding-bottom: 20px;
 }
 .img-text {
     float: left;
@@ -40,6 +40,11 @@ git
 
 .padding{
     padding: 10%;
+}
+.margin{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top:3%;
 }
 .high{
     border: 1px solid grey;
@@ -90,7 +95,10 @@ git
   text-align: justify;
 
 }
+.next-post{
+  text-align: justify;
 
+}
 .block{
   padding: 3%
 }
@@ -100,4 +108,22 @@ git
   margin:10px;
     margin-bottom:50px;
 }
-
+.smallphoto{
+    max-width: 50%;
+}
+.footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: grey;
+  color: white;
+  text-align: center;
+}
+.footer a {
+  color: white;
+}
+.welcome{
+    padding:5%;
+    margin:5%;
+}

@@ -3,21 +3,41 @@ from django.utils import timezone
 from django.urls import reverse
 from taggit.managers import TaggableManager
 
+
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager,
+                     self).get_queryset()\
+                          .filter(status='published')
+
+
 class Post(models.Model):
+    STATUS_CHOICES = (
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+    )
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = models.TextField()
     create_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
+    status = models.CharField(max_length=10,
+                              choices=STATUS_CHOICES,
+                              default='draft')
     photo = models.ImageField(default="", upload_to='blogPhotos',blank=True, null=True)
     tags = TaggableManager()
+    objects = models.Manager()  # The default manager
+    published = PublishedManager() # Our custom manager.
+
 
     def publish(self):
         self.published_date = timezone.now()
+        self.status = 'published'
         self.save()
 
     def unpublish(self):
         self.published_date = None
+        self.status = 'draft'
         self.save()
 
     def approve_comments(self):
@@ -30,7 +50,7 @@ class Post(models.Model):
 
     @property
     def is_published(self):
-        return self.published_date != None
+        return self.status == "published"
 
     def __str__(self):
         return self.title

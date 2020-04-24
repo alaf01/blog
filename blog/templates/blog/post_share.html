@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Share post</h1>
+    {% if sent %}
+    <h1>E-mail successfully sent</h1>
+    <p>
+      "{{ post.title }}" was successfully sent to {{ form.cleaned_data.to }}.
+    </p>
+    {% else %}
+    <form method="POST" class="post-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+  <div>
+    {{ field.errors }}
+    {{ field.label_tag }} {{ field }}
+  </div>
+{% endfor %}
+    <input type="submit" value="Send e-mail">
+    </form>
+    {% endif %}
+{% endblock %}

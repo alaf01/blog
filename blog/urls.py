@@ -1,5 +1,6 @@
 from django.urls import path
 from blog import views
+from .feeds import LatestPostsFeed
 
 urlpatterns = [
     path('', views.welcome, name='about'),
@@ -18,7 +19,10 @@ urlpatterns = [
     path('post/<int:pk>/publish/', views.post_publish, name='publish'),
     path('post/<int:pk>/unpublish/', views.post_unpublish, name='unpublish'),
     path('post/<int:post_pk>/<int:comment_pk>/score_up/', views.score_up, name='score_up'),
-    path('post/<int:post_pk>/<int:comment_pk>/score_down/', views.score_down, name='score_down')
-
+    path('post/<int:post_pk>/<int:comment_pk>/score_down/', views.score_down, name='score_down'),
+    path('post/<int:pk>/share', views.post_share, name='post_share'),
+    path('post/<int:pk>/func', views.post_detail, name='post_detail_func'),
+    path('feed/', LatestPostsFeed(), name='post_feed'),
+    path('search/', views.post_search, name='post_search'),
 
 ]

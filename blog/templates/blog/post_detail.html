@@ -1,9 +1,9 @@
 {% extends "blog/base.html" %}
 {% load static %}
-
+{% load blog_tags %}
 {% block content %}
 
-        <div class="content">
+<div class="content">
             {% if success %}
             <div class="alert alert-success" role="alert">
             Thank you for adding comment. It will be display after approval
@@ -19,7 +19,7 @@
                 {% else %}
                     <img class="img-text" src="{% static "blog/panda.jpg" %}" alt="My image">
                  {% endif %}
-                <div class="col-12 text padding"><p>{{post.text|linebreaks }}</p></div>
+                <div class="col-12 text padding"><p>{{post.text|markdown}}</p></div>
 
 
 
@@ -28,10 +28,34 @@
 
         <div class="col-sm-4"><p class="row">published {{post.published_date}}</p></div>
                 </div>
+             {% if similar_posts.count > 0 %}
+             <h2>Similar posts</h2>
+            {% for post in similar_posts %}
+              <div class="row justify-content-center ">
+                  <a href="{% url 'post_detail_func' post.pk %}" class="btn btn-outline-secondary next-post margin">
+                      <h2 class="margin">{{post.title}}</h2>
+                {% if post.photo %}
+
+                    <img class="img-text smallphoto" src="{{post.photo.url}}" alt="My image">
+
+                {% else %}
+                    <img class="img-text smallphoto" src="{% static "blog/panda.jpg" %}" alt="My image">
+                {% endif %}
+                      <p class="margin">{{post.text|markdown|truncatewords_html:30}}<p class="margin">Tags: {{post.tags.all|join:", " }}</p></p>
+                  </a>
+
+            </div>
+              </p>
+            {% empty %}
+              There are no similar posts yet.
+            {% endfor %}
+            {% endif %}
         </div>
+
         </div>
             <div class="row justify-content-around">
                 <div class="col-sm-6 uuu">
+
             {% if post.approve_comments.count != 0 %}
                     <h4>Comments:</h4>
                     <hr>
@@ -70,9 +94,13 @@
                 </div>
 
                     <a href="{% url 'add_comment_to_post' post.pk %}" class="btn btn-outline-secondary">Add a comment</a>
+                    <a href="{% url 'post_share' post.pk %}" class="btn btn-outline-secondary">Share this post</a>
+
                 </div>
 
             </div>
-        </div></div>
+        </div>
+
+</div>
 
 {% endblock %}

@@ -1,5 +1,5 @@
-
 {% extends "blog/base.html" %}
+{% load blog_tags %}
 {% load static %}
 {% block content %}
     {% if page_obj %}
@@ -43,7 +43,7 @@
                         </div>
                     <div class="block">
                       <div class="row justify-content-around">
-                        <div class="col-sm-10 text"><p>{{post.text|truncatewords:30}}</p>
+                        <div class="col-sm-10 text"><p>{{post.text|markdown|truncatewords_html:30}}</p>
                                 <div class="col-sm-12 block align-self-end">
                                     <small>
                                         <p class="row">

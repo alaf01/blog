@@ -19,13 +19,20 @@ from django.contrib.auth.views import LoginView, LogoutView
 from . import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.sitemaps.views import sitemap
+from blog.sitemaps import PostSitemap
 
+sitemaps = {
+    'posts': PostSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('accounts/logout', LogoutView.as_view(next_page='about'), name='logout'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap')
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

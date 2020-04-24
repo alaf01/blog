@@ -1,0 +1,22 @@
+{% load static %}
+{% load blog_tags %}
+<ul>
+{% for post in latest_posts %}
+           <div class="row justify-content-center ">
+                  <a href="{% url 'post_detail_func' post.pk %}" class="btn btn-outline-secondary next-post margin">
+                      <h2 class="margin">{{post.title}}</h2>
+                {% if post.photo %}
+
+                    <img class="img-text smallphoto" src="{{post.photo.url}}" alt="My image">
+
+                {% else %}
+                    <img class="img-text smallphoto" src="{% static 'blog/panda.jpg' %}" alt="My image">
+                {% endif %}
+                      <p class="margin">{{post.text|markdown|truncatewords_html:30}}<p class="margin">Tags: {{post.tags.all|join:", " }}</p></p>
+                  <p class="margin">Published: {{post.published_date}}
+                  </p>
+                  </a>
+
+            </div>
+{% endfor %}
+</ul>
