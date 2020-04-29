@@ -1,4 +1,4 @@
 django_taggit==0.22.2
 Markdown==2.6.11
-pillow
+Pillow==7.1.2
 psycopg2==2.7.4
