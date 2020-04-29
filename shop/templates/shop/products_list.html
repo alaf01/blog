@@ -1,0 +1,43 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block content %}
+
+ <div class="container-fluid">
+{% if cat_slug %}
+     <h1>Category: {{cat_slug|title}}</h1>
+{% endif %}
+            <div class="row">
+                {% for product in products %}
+                <div class="col-xl-4 col-md-4 col-sm-6 col-xs-12 blue">
+<a href="{% url 'product_detail' product.pk %}">
+
+                    <h3>{{product.name}}</h3>
+
+                    {% if product.image %}
+                          <img class="shop_list_img" src="{{product.image.url}}" alt="My image">
+                        {% else %}
+                          <img class="shop_list_img" src="{% static "blog/panda.jpg" %}" alt="My image">
+                      {% endif %}
+
+                    <p class="description">{{product.description|truncatewords_html:4}}</p>
+                    <div class="bottom">
+
+                        <div class="row justify-content-between margin5">
+                            <h5 class="col-8">price: {{product.price}} £ </h5>
+                            <small class="col-4">amount: {{product.amount}}</small>
+                        </div>
+
+                        <div class="row justify-content-around">
+                            <a href="#" class="btn btn-secondary col-5 btn-sm">Add to cart</a>
+                            <a href="#" class="btn btn-secondary col-5 btn-sm">Buy now</a>
+                        </div>
+                    </div>
+</a>
+                </div>
+
+                {% endfor %}
+            </div>
+            </div>
+ </div>
+{% endblock %}

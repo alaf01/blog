@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from random import randint, shuffle
 from django.utils import timezone
 from datetime import timedelta
-
+from django.core.files import File
 
 # class AuthorFactory(DjangoModelFactory):
 #     class Meta:

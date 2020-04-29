@@ -1,0 +1,26 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="col-8 detail">
+<h3 >{{product.name}}</h3>
+    <div class="row justify-content-around">
+        <h5 class="col-8">price: {{product.price}} £ </h5>
+        <p class="col-5">amount: {{product.amount}}</p>
+    </div>
+                    {% if product.image %}
+                          <img class="shop_detail_img" src="{{product.image.url}}" alt="My image">
+                        {% else %}
+                          <img class="shop_detail_img" src="{% static "blog/panda.jpg" %}" alt="My image">
+                      {% endif %}
+
+
+                    <div >
+                        <div class="row justify-content-around">
+                            <a href="#" class="btn btn-secondary ">Add to cart</a>
+                            <a href="#" class="btn btn-secondary ">Buy now</a>
+                        </div>
+                    </div>
+                    <p class="description">{{product.description}}</p>
+</div>
+{% endblock %}

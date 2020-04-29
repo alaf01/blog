@@ -29,6 +29,7 @@ sitemaps = {
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
+    path('shop/', include('shop.urls')),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('accounts/logout', LogoutView.as_view(next_page='about'), name='logout'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},

@@ -1,7 +1,6 @@
+<!DOCTYPE html>
 {% load blog_tags %}
 {% load static %}
-
-<!DOCTYPE html>
 <html dir="ltr" lang="
 ">
 <head>
@@ -53,16 +52,10 @@
                     <a class="nav-link" href="{% url 'about' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://www.monikafilipek.com/">About me</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href={% url 'post_list' %}>Posts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://www.cartmobileartgallery.com/">cart gallery</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://www.etsy.com/uk/shop/WitchCart">Shop</a>
+                    <a class="nav-link" href="{% url 'products_list' %}">Shop</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'post_search' %}">Search</a>
